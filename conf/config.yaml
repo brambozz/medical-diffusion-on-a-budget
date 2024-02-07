@@ -1,0 +1,27 @@
+architecture: resnet18
+
+train:
+    n_runs: 1
+    lr: 1E-4
+    data_dir: train
+    aug_level: heavy
+
+log:
+    wandb: True
+
+wandb:
+    project:
+    group:
+
+data_dir: /path/to/data
+
+trainer:
+    gpus: 1
+    max_steps: 6250
+    max_epochs: -1
+    log_every_n_steps: 50
+
+
+datamodule:
+    batch_size: 32
+    num_workers: 8
