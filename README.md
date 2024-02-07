@@ -5,8 +5,9 @@ Repository for the paper 'Medical diffusion on a budget: textual inversion for m
 ## Textual Inversion
 
 Textual Inversion and image generation was performed with the [AUTOMATIC1111 web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui).
-
 Specifically, the version of the repository at [commit `d050bb7`](https://github.com/AUTOMATIC1111/stable-diffusion-webui/tree/d050bb78636236338440768f871a0f2bb9f277f6) was used.
+
+To start generating with the embeddings, follow the installation instructions there and use the Stable Diffusion 2.0 [checkpoint](https://huggingface.co/stabilityai/stable-diffusion-2), specifically `512-base-ema.ckpt`.
 
 ## Trained embeddings
 
