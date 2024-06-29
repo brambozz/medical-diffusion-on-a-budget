@@ -23,6 +23,7 @@
   // Institution logo.
   $if(institution-logo)$ univ_logo: "$institution-logo$", $endif$
   $if(footer-logo)$ footer_logo: "$footer-logo$", $endif$
+  $if(main-image)$ main_image: "$main-image$", $endif$
 
   // Footer text.
   // For instance, Name of Conference, Date, Location.

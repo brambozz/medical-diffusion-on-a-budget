@@ -20,6 +20,7 @@
   // University logo.
   univ_logo: "Logo Path",
   footer_logo: "Logo Path",
+  main_image: "Logo Path",
 
   // Footer text.
   // For instance, Name of Conference, Date, Location.
@@ -100,7 +101,7 @@
     height: height,
     fill: latte.base,
     margin: 
-      (top: 1in, left: 2in, right: 2in, bottom: 4in),
+      (top: 1in, left: 2in, right: 2in, bottom: 2.8in),
     footer: [
       #set align(center)
       #set text(32pt)
@@ -110,7 +111,7 @@
         fill: latte.surface0,
         width: 100% + 4in,
 	height: 4in,
-        inset: 1in,
+        inset: 0.4in,
         grid(
           columns: (1fr, 1fr, 1fr),
           rows: (2in),
@@ -122,6 +123,12 @@
       )))
     ]
   )
+
+  // Configure caption style
+  show figure.caption: it => [
+  #it.body
+  ] 
+  show figure.caption: set align(left)
 
   // Configure equation numbering and spacing.
   set math.equation(numbering: "(1)")
@@ -191,7 +198,9 @@
   )
 
   // Show main image
-  align(center, "center image here")
+  align(center,
+  image(main_image, width: 93%)
+  )
 
   // Start three column mode and configure paragraph properties.
   show: columns.with(num_columns, gutter: 64pt)

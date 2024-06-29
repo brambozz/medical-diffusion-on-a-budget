@@ -4,6 +4,7 @@ from: markdown+emoji
 format:
   poster-typst: 
     main-message: "Generate faithful images in hours with **100 examples** on **1 GPU**"
+    main-image: "images/general-overview.svg"
     size: "33.1x46.8"
     poster-authors: "Bram de Wilde, Anindo Saha, Maarten de Rooij, Henkjan Huisman, Geert Litjens"
     departments: "Radboudumc, The Netherlands"
@@ -19,8 +20,8 @@ format:
     title-font-size: "70"
     footer-url-font-size: "15"
     authors-font-size: "45"
-    heading-font-size: "100"
-    body-font-size: "80"
+    heading-font-size: "55"
+    body-font-size: "55"
 ---
 
 <!--
@@ -36,14 +37,40 @@ TODO make radboudumc logo black, but change color to latte.text
 
 # Introduction
 
-- Bullet
-- List
-- With
-- #emoji.heart.green
+Diffusion models work great!
+
+Inference possible on single GPU
+
+Training requires **compute** and **data**
 
 # Methods
 
-# Results
+Start from pre-trained Stable Diffusion
 
-# Conclusion
+Adapt to medical modality with 100 images
 
+Fine-tunes only the token embedding
+
+# Results 
+
+Use **larger embeddings** and **more images**
+
+Images maintain or improve classification
+
+Images are **diagnostically accurate**
+
+Preferred over StyleGAN3 by radiologist
+
+**Compose** embeddings to combine diseases
+
+![](images/chexpert-composition.svg){fig-align=center width=75%}
+
+```{=typst} 
+#v(-0.5in)
+#line(length:100%, stroke:3pt + latte.text)
+#v(-0.5in)
+```
+
+**Inpaint** diseases at specific locations
+
+![](images/prostate-inpainting.svg){fig-align=center width=85%}
