@@ -1,3 +1,5 @@
+#import "@preview/typpuccino:0.1.0": latte, frappe, macchiato, mocha
+#import "@preview/cades:0.3.0": qr-code
 
 #let poster(
   // The poster's size.
@@ -17,6 +19,7 @@
 
   // University logo.
   univ_logo: "Logo Path",
+  footer_logo: "Logo Path",
 
   // Footer text.
   // For instance, Name of Conference, Date, Location.
@@ -56,8 +59,9 @@
 
   // Poster title's font size (in pt).
   title_font_size: "48",
-
   main_message_font_size: "48",
+  heading_font_size: "48",
+  body_font_size: "48",
 
   // Authors' font size (in pt).
   authors_font_size: "36",
@@ -71,8 +75,6 @@
   // The poster's content.
   body
 ) = {
-  // Set the body font.
-  set text(font: "STIX Two Text", size: 16pt)
   let sizes = size.split("x")
   let width = float(sizes.at(0)) * 1in
   let height = float(sizes.at(1)) * 1in
@@ -85,30 +87,39 @@
   title_column_size = int(title_column_size) * 1in
   footer_url_font_size = int(footer_url_font_size) * 1pt
   footer_text_font_size = int(footer_text_font_size) * 1pt
+  heading_font_size = int(heading_font_size) * 1pt
+  body_font_size = int(body_font_size) * 1pt
+
+  // Set the body font.
+  set text(size: body_font_size, fill: latte.text)
 
   // Configure the page.
   // This poster defaults to 36in x 24in.
   set page(
     width: width,
     height: height,
+    fill: latte.base,
     margin: 
-      (top: 1in, left: 2in, right: 2in, bottom: 2in),
+      (top: 1in, left: 2in, right: 2in, bottom: 4in),
     footer: [
       #set align(center)
       #set text(32pt)
-      #block(
-        fill: rgb(footer_color),
-        width: 100%,
-        inset: 20pt,
-        radius: 10pt,
-        [
-          #text(font: "Courier", size: footer_url_font_size, footer_url) 
-          #h(1fr) 
-          #text(size: footer_text_font_size, smallcaps(footer_text)) 
-          #h(1fr) 
-          #text(font: "Courier", size: footer_url_font_size, footer_email_ids)
-        ]
-      )
+      #move(
+        dx: 0in, dy: -1in,
+      block(
+        fill: latte.surface0,
+        width: 100% + 4in,
+	height: 4in,
+        inset: 1in,
+        grid(
+          columns: (1fr, 1fr, 1fr),
+          rows: (2in),
+          gutter: 0in,
+
+            grid(columns: (2in, 1fr), qr-code(footer_url, color: latte.text, background: latte.base), align(left+horizon, text("  " + sym.arrow.l + " Scan for more details!")) ),
+            align(center+horizon, footer_text),
+            align(right+horizon, image(footer_logo))        
+      )))
     ]
   )
 
@@ -121,7 +132,8 @@
   set list(indent: 10pt, body-indent: 9pt)
 
   // Configure headings.
-  set heading(numbering: "I.A.1.")
+  //set heading(numbering: "I.A.1.")
+  set heading(numbering: "1.")
   show heading: it => locate(loc => {
     // Find out the final number of the heading counter.
     let levels = counter(heading).at(loc)
@@ -134,17 +146,15 @@
     set text(24pt, weight: 400)
     if it.level == 1 [
       // First-level headings are centered smallcaps.
-      #set align(center)
+      #set align(left)
       #set text({ 32pt })
       #show: smallcaps
       #v(50pt, weak: true)
       #if it.numbering != none {
-        numbering("I.", deepest)
         h(7pt, weak: true)
       }
-      #it.body
+      #text(heading_font_size, it.body, fill: latte.sky)
       #v(35.75pt, weak: true)
-      #line(length: 100%)
     ] else if it.level == 2 [
       // Second-level headings are run-ins.
       #set text(style: "italic")
@@ -165,34 +175,23 @@
     ]
   })
 
-  // Arranging the logo, title, authors, and department in the header.
-  //align(center,
-  //  grid(
-  //    rows: 2,
-  //    columns: (univ_logo_column_size, title_column_size),
-  //    column-gutter: 0pt,
-  //    row-gutter: 50pt,
-  //    image(univ_logo, width: univ_logo_scale),
-  //    text(title_font_size, title + "\n\n") + 
-  //    text(authors_font_size, emph(authors) + 
-  //        "   (" + departments + ") "),
-  //  )
-  //)
-
 
   stack(
   spacing: 0pt,
   move(
   dx: -2in, dy: -1in,
-  block(fill: rgb("FFCBC4"), spacing: 0%, above: 0%, below: 0%, outset:0%, width: 100% + 4in, inset: 2in, align(left, text(main_message_font_size, main_message)))
+  block(fill: latte.sky, spacing: 0%, above: 0%, below: 0%, outset:0%, width: 100% + 4in, inset: 2in, align(center, text(main_message_font_size, main_message, fill: black)))
   ),
   move(
   dx: -2in, dy: -1in,
-  block(fill: rgb("EEEEEE"), spacing: 0%, above: 0%, below: 0%, outset: 0%, width: 100% + 4in, inset: 2in,
-  align(left, text(title_font_size, title))
+  block(fill: latte.surface0, spacing: 0%, above: 0%, below: 0%, outset: 0%, width: 100% + 4in, inset: 1in,
+  align(left, text(title_font_size, title + "\n") + text(authors_font_size, authors, fill: latte.subtext0) + text(authors_font_size, " - "  + departments, fill: latte.subtext0))
   )
   )
   )
+
+  // Show main image
+  align(center, "center image here")
 
   // Start three column mode and configure paragraph properties.
   show: columns.with(num_columns, gutter: 64pt)
@@ -208,4 +207,5 @@
 
   // Display the poster's contents.
   body
+
 }

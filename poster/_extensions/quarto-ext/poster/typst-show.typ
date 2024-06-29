@@ -17,12 +17,12 @@
   // TODO: use Quarto's normalized metadata.
   $if(poster-authors)$ authors: [$poster-authors$], $endif$
   $if(main-message)$ main_message: [$main-message$], $endif$
-  $if(main-message-font-size)$ main_message_font_size: $main-message-font-size$, $endif$
   $if(departments)$ departments: [$departments$], $endif$
   $if(size)$ size: "$size$", $endif$
 
   // Institution logo.
   $if(institution-logo)$ univ_logo: "$institution-logo$", $endif$
+  $if(footer-logo)$ footer_logo: "$footer-logo$", $endif$
 
   // Footer text.
   // For instance, Name of Conference, Date, Location.
@@ -30,7 +30,7 @@
   $if(footer-text)$ footer_text: [$footer-text$], $endif$
 
   // Any URL, like a link to the conference website.
-  $if(footer-url)$ footer_url: [$footer-url$], $endif$
+  $if(footer-url)$ footer_url: "$footer-url$", $endif$
 
   // Emails of the authors.
   $if(footer-emails)$ footer_email_ids: [$footer-emails$], $endif$
@@ -60,17 +60,14 @@
   // Title and authors' column size (in in).
   $if(title-column-size)$ title_column_size: $title-column-size$, $endif$
 
-  // Poster title's font size (in pt).
+  // Font sizes (in pt)
   $if(title-font-size)$ title_font_size: $title-font-size$, $endif$
-
-  // Authors' font size (in pt).
-  $if(authors-font-size)$ authors_font_size: $authors-font-size$, $endif$
-
-  // Footer's URL and email font size (in pt).
   $if(footer-url-font-size)$ footer_url_font_size: $footer-url-font-size$, $endif$
-
-  // Footer's text font size (in pt).
   $if(footer-text-font-size)$ footer_text_font_size: [$footer-text-font-size$], $endif$
+  $if(authors-font-size)$ authors_font_size: $authors-font-size$, $endif$
+  $if(main-message-font-size)$ main_message_font_size: $main-message-font-size$, $endif$
+  $if(heading-font-size)$ heading_font_size: $heading-font-size$, $endif$
+  $if(body-font-size)$ body_font_size: $body-font-size$, $endif$
 
   doc,
 )
