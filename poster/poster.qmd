@@ -9,7 +9,7 @@ format:
     departments: "Radboudumc, The Netherlands"
     footer-url: "https://bramdewilde.com/medical-diffusion"
     footer-text: "contact@bramdewilde.com"
-    footer-logo: "images/radboudumc.png"
+    footer-logo: "images/radboudumc-catppuccin.png"
     footer-color: "ebcfb2"
     num-columns: "2"
     univ-logo-scale: "100"
@@ -28,6 +28,10 @@ format:
 
 	add this package for qr code
 	i can box it with a radius and some color to make it look pretty
+
+TODO fix linebreak in title+authors, this should become a hardcoded vspace
+	because it now depends on the body text size
+TODO make radboudumc logo black, but change color to latte.text
 -->
 
 # Introduction
