@@ -77,8 +77,10 @@
   body
 ) = {
   let sizes = size.split("x")
-  let width = float(sizes.at(0)) * 1in
-  let height = float(sizes.at(1)) * 1in
+  //let width = float(sizes.at(0)) * 1in
+  //let height = float(sizes.at(1)) * 1in
+  let width = float(841) * 1mm
+  let height = float(1189) * 1mm
   univ_logo_scale = int(univ_logo_scale) * 1%
   title_font_size = int(title_font_size) * 1pt
   main_message_font_size = int(main_message_font_size) * 1pt
@@ -117,8 +119,8 @@
           rows: (2in),
           gutter: 0in,
 
-            grid(columns: (2in, 1fr), qr-code(footer_url, color: latte.text, background: latte.base), align(left+horizon, text("  " + sym.arrow.l + " Scan for more details!")) ),
-            align(center+horizon, footer_text),
+            grid(columns: (2in, 1fr), qr-code(footer_url, color: latte.text, background: latte.base), align(left+horizon, text(footer_url_font_size, "  " + sym.arrow.l + " Scan for more details!")) ),
+            align(center+horizon, text(footer_url_font_size, footer_text)),
             align(right+horizon, image(footer_logo))        
       )))
     ]
@@ -160,7 +162,7 @@
       #if it.numbering != none {
         h(7pt, weak: true)
       }
-      #text(heading_font_size, it.body, fill: latte.sky)
+      #text(heading_font_size, it.body, fill: latte.green)
       #v(35.75pt, weak: true)
     ] else if it.level == 2 [
       // Second-level headings are run-ins.
@@ -187,7 +189,7 @@
   spacing: 0pt,
   move(
   dx: -2in, dy: -1in,
-  block(fill: latte.sky, spacing: 0%, above: 0%, below: 0%, outset:0%, width: 100% + 4in, inset: 2in, align(center, text(main_message_font_size, main_message, fill: black)))
+  block(fill: latte.green, spacing: 0%, above: 0%, below: 0%, outset:0%, width: 100% + 4in, inset: 2in, align(center, text(main_message_font_size, main_message, fill: black)))
   ),
   move(
   dx: -2in, dy: -1in,

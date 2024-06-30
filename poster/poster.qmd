@@ -18,7 +18,7 @@ format:
     title-column-size: "10"
     main-message-font-size: "150"
     title-font-size: "70"
-    footer-url-font-size: "15"
+    footer-url-font-size: "40"
     authors-font-size: "45"
     heading-font-size: "55"
     body-font-size: "55"
@@ -67,7 +67,7 @@ Preferred over StyleGAN3 by radiologist
 
 ```{=typst} 
 #v(-0.5in)
-#line(length:100%, stroke:3pt + latte.text)
+#line(length:100%, stroke:3pt + latte.surface0)
 #v(-0.5in)
 ```
 
