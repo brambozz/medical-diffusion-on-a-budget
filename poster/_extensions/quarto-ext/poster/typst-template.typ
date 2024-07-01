@@ -93,6 +93,9 @@
   heading_font_size = int(heading_font_size) * 1pt
   body_font_size = int(body_font_size) * 1pt
 
+  // fix url
+  let footer_url = footer_url.replace("\\", "")
+
   // Set the body font.
   set text(size: body_font_size, fill: latte.text)
 

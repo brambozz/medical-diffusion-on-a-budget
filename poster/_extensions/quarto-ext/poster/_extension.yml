@@ -5,6 +5,7 @@ quarto-required: ">=1.4.415"
 contributes:
   formats:
     typst:
+      dpi: 300
       template-partials:
         - typst-template.typ
         - typst-show.typ

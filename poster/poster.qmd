@@ -49,7 +49,7 @@ Start from pre-trained Stable Diffusion
 
 Adapt to medical modality with 100 images
 
-Fine-tunes only the token embedding
+Fine-tune only the token embedding
 
 # Results 
 
