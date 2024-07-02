@@ -10,6 +10,11 @@ $presentation-h1-font-size: 2em !default;
 
 /*-- scss:rules --*/
 
+.reveal .slide-logo {
+  height: 100px !important;
+  max-height: unset !important;
+}
+
 .subtitle {
   font-size: 1em;
 }

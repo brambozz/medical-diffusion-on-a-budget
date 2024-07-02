@@ -1,7 +1,7 @@
 ---
 title: "Medical diffusion on a budget"
 subtitle: "Textual Inversion for medical image generation"
-author: "**Bram de Wilde**, Anindo Saha, Maarten de Rooij, Henkjan Huisman, Geert Litjens"
+author: "Bram de Wilde, Anindo Saha, Maarten de Rooij, Henkjan Huisman, Geert Litjens"
 from: markdown+emoji
 format: 
   revealjs:
@@ -9,13 +9,16 @@ format:
     slide-number: c
     theme: catppuccin.scss
     menu: false
+title-slide-attributes:
+    data-background-image: media/sd_overview.png
+    data-background-opacity: "0.1"
 ---
 
 ## :construction: TODO
 
-- add image(s) to title slide
-- debug r-stack, I think I need to export to png
-- potentially a slide on that FID/MFID is a bad metric
+- add logo to title slide
+- bonus slide on chambon et al
+- bonus slide on FID metric
 
 ## Diffusion models {.nostretch}
 
@@ -28,6 +31,8 @@ Stable Diffusion: **open source** + inference on **single GPU**
 ![https://www.stelfiett.com/stelfies-gallery](media/stelfie_einstein.webp){width=40%}
 :::
 -->
+
+. . .
 
 ::: {layout-ncol=2 style="text-align: center; font-size:0.7em;"}
 ![](media/stelfie_einstein.webp){width=60%}
@@ -81,9 +86,13 @@ Methods fine-tune sub-parts of diffusion model
 
 :black_nib: Textual Inversion only trains token embedding
 
-![](media/general-overview.svg)
+::: {.r-stack}
+![](media/general-overview-0.png){.fragment width=80% fig-align=center}
 
-## Textual Inversion example
+![](media/general-overview.png){.fragment width=80% fig-align=center}
+:::
+
+## Textual Inversion
 
 ::: {layout="[[-1], [1], [-1]]"}
 ![](media/textual_inversion_example.JPG)
@@ -107,9 +116,9 @@ Original work uses small embeddings and ~5 examples
 
 :construction: image visualizing setup
 
-## Classification {auto-animate=true}
+## Classification
 
-| #Real | #Synthetic | AUC - Prostate MRI |
+| #Real | #Synthetic | AUC ± std - Prostate MRI |
 |-------|--------|--------------------|
 | 200   | 0      | 0.780 ± 0.017      |
 | 200   | 2000   | 0.803 ± 0.009      |
@@ -118,46 +127,52 @@ Original work uses small embeddings and ~5 examples
 :chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance
 :::
 
-## Classification {auto-animate=true}
+## Classification
 
-| #Real | #Synthetic | AUC - Prostate MRI |
+| #Real | #Synthetic | AUC ± std - Prostate MRI |
 |-------|--------|--------------------|
 | 200   | 0      | 0.780 ± 0.017      |
 | 200   | 2000   | 0.803 ± 0.009      |
 | 0     | 2000   | 0.766 ± 0.020      |
 
 ::: {.center}
-:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance
+[:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance]{style="opacity: 0.5;"}
 
 :chart_with_downwards_trend: Using only synthetic data gives small performance drop
 :::
 
-## Classification {auto-animate=true}
+## Classification
 
-| #Real | #Synthetic | AUC - Prostate MRI |
+| #Real | #Synthetic | AUC ± std - Prostate MRI |
 |-------|--------|--------------------|
 | 200   | 0      | 0.780 ± 0.017      |
 | 200   | 2000   | 0.803 ± 0.009      |
 | 0     | 2000   | 0.766 ± 0.020      |
-| 0     | 2000*  | 0.562 ± 0.036      |
+| 0     | 2000[^1] | 0.562 ± 0.036      |
 
 ::: {.center}
-:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance
+[:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance]{style="opacity: 0.5;"}
 
-:chart_with_downwards_trend: Using only synthetic data gives small performance drop
+[:chart_with_downwards_trend: Using only synthetic data gives small performance drop]{style="opacity: 0.5;"}
 
 :-1: Training on 10-case embeddings shows quality difference
 :::
+
+[^1]: Embedding trained on 10 examples instead of 100 
 
 ## Comparison to GAN baseline
 
 :monocle_face: What about GANs?
 
+. . .
+
 :microscope: Fine-tune a pre-trained StyleGAN3 on 100 images
 
 :balance_scale: Similar training time and compute
 
-![](media/head_to_head.png){fig-align=center}
+![](media/head_to_head.png){fig-align=center width=50%}
+
+. . .
 
 :health_worker: Prostate radiologist preferred diffusion model (36/50)
 
@@ -171,6 +186,8 @@ Original work uses small embeddings and ~5 examples
 
 :black_nib: "`healthy`:30% AND `diseased`:70%"
 
+. . .
+
 ![](media/disease_interpolation.png){fig-align=center}
 
 ## Composing embeddings
@@ -183,30 +200,57 @@ Original work uses small embeddings and ~5 examples
 
 :black_nib: "`pleural_effusion` AND `pneumonia`"
 
+. . .
+
 ![](media/chexpert_composition.png){fig-align=center}
 
 ## Disease inpainting
 
-- Curate synthesized dataset
-- Precise control over disease location
+:paintbrush: Mask part of image and denoise
 
-IMAGE (full prostate image in a couple fragments)
+:mag: Precise control over disease location
+
+. . .
+
+![](media/prostate_inpainting.png){fig-align=center width=50%}
 
 ## Future directions
 
-- Fine-tune **medical** diffusion model
-- Applicable to **3D** text-to-image models
-- Study utility for **rare diseases**
-- Exploit controlled synthesis with **composing** and **inpainting**
+:x_ray: Fine-tune **medical** diffusion model
 
-# Thanks for listening!
+. . .
 
-:construction: style this page more
+:technologist: Applicable to **3D** text-to-image models
 
-{{< qrcode https://bramdewilde.com/medical-diffusion width=400 height=400 colorDark='#4c4f69' >}}
+. . .
 
-Scan for paper, code, contact details & more!
+:petri_dish: Study utility for **rare diseases**
+
+. . .
+
+:hammer_and_wrench: Controlled synthesis with **composing** and **inpainting**
+
+. . .
+
+::: {style="text-align: center; margin: auto;"}
+
+# :technologist: Try it out! {.center background-image=media/sd_overview.png background-opacity=0.1}
+
+<!--
+{{< qrcode https://bramdewilde.com/medical-diffusion width=400 height=400 colorDark='#4c4f69' colorLight='#eff1f5' margin='auto'>}}
+-->
+![](media/qr.png){fig-align=center width=30%}
+
+Scan for :scroll: :floppy_disk: :envelope: & more!
+
+![](media/radboudumc-catppuccin.png){fig-align=center width=30%}
+:::
+
 
 ## Chambon et al.
 
 - Bonus slide showing what happens if you have data + compute
+
+## FID metric
+
+- Highlight appendix
