@@ -39,3 +39,13 @@ The following command was used to train:
 ```sh
 train.py --cfg=stylegan3-t --data=/path/to/train/set --gpus=1 --batch=4 --gamma=8 --mirror=1 --kimg=100 --resume=https://api.ngc.nvidia.com/v2/models/nvidia/research/stylegan3/versions/1/files/stylegan3-t-afhqv2-512x512.pkl --snap=25 --tick=1 --mbstd-group 1 --metrics none
 ```
+
+## Poster template
+
+Feel free to use the poster template, made with [Quarto](https://quarto.org).
+To preview/render the poster:
+
+```
+cd poster
+quarto preview/render poster.qmd
+```
