@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+
+// colors
+$body-bg: #eff1f5 !default;
+$body-color: #4c4f69 !default;
+$link-color: #04a5e5 !default;
+$link-color-hover: #1e66f5 !default;
+
+$presentation-h1-font-size: 2em !default;
+
+/*-- scss:rules --*/
+
+.subtitle {
+  font-size: 1em;
+}
+
+.quarto-title-author-name {
+  font-size: 0.6em;
+}

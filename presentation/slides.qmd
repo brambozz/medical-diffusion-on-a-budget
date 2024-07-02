@@ -1,0 +1,212 @@
+---
+title: "Medical diffusion on a budget"
+subtitle: "Textual Inversion for medical image generation"
+author: "**Bram de Wilde**, Anindo Saha, Maarten de Rooij, Henkjan Huisman, Geert Litjens"
+from: markdown+emoji
+format: 
+  revealjs:
+    embed-resources: true
+    slide-number: c
+    theme: catppuccin.scss
+    menu: false
+---
+
+## :construction: TODO
+
+- add image(s) to title slide
+- debug r-stack, I think I need to export to png
+- potentially a slide on that FID/MFID is a bad metric
+
+## Diffusion models {.nostretch}
+
+Popular for text-to-image modeling
+
+Stable Diffusion: **open source** + inference on **single GPU**
+
+<!--
+::: {style="text-align: center; font-size:0.7em;"}
+![https://www.stelfiett.com/stelfies-gallery](media/stelfie_einstein.webp){width=40%}
+:::
+-->
+
+::: {layout-ncol=2 style="text-align: center; font-size:0.7em;"}
+![](media/stelfie_einstein.webp){width=60%}
+
+![](media/stelfie_meme.webp){width=60%}
+:::
+
+. . .
+
+:rotating_light: Training requires a lot of **compute** and **data**
+
+. . .
+
+:hospital: Medical domain can have **rare diseases** and **local compute**
+
+::: aside
+https://www.stelfiett.com/stelfies-gallery
+:::
+
+## Prostate MRI?
+
+:monocle_face: Does Stable Diffusion already know medical imaging?
+
+. . .
+
+::: {style="text-align: center;"}
+::: {.columns}
+
+::: {.column width="50%"}
+[:black_nib: "a prostate MRI scan"]{style="font-size:0.7em"}
+
+![](media/vanilla_a_prostate_mri_scan.png){width=65% fig-align="center"}
+:::
+
+::: {.column width="50%"}
+[:black_nib: "a T2-weigthed MRI scan of a prostate"]{style="font-size:0.7em"}
+
+![](media/vanilla_t2_weighted.png){width=65%}
+:::
+
+:::
+:::
+
+. . .
+
+:bulb: Fine-tune model
+
+## Fine-tuning diffusion models
+
+Methods fine-tune sub-parts of diffusion model
+
+:black_nib: Textual Inversion only trains token embedding
+
+![](media/general-overview.svg)
+
+## Textual Inversion example
+
+::: {layout="[[-1], [1], [-1]]"}
+![](media/textual_inversion_example.JPG)
+:::
+
+::: aside
+:scroll: An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion, *Gal et al.*, 2022
+:::
+
+## Adapt to medical imaging
+
+Original work uses small embeddings and ~5 examples
+
+. . .
+
+![](media/ti_settings_overview.png){width=80%}
+
+:bulb: Use **larger embeddings** and **more examples**
+
+## Classification
+
+:construction: image visualizing setup
+
+## Classification {auto-animate=true}
+
+| #Real | #Synthetic | AUC - Prostate MRI |
+|-------|--------|--------------------|
+| 200   | 0      | 0.780 ± 0.017      |
+| 200   | 2000   | 0.803 ± 0.009      |
+
+::: {.center}
+:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance
+:::
+
+## Classification {auto-animate=true}
+
+| #Real | #Synthetic | AUC - Prostate MRI |
+|-------|--------|--------------------|
+| 200   | 0      | 0.780 ± 0.017      |
+| 200   | 2000   | 0.803 ± 0.009      |
+| 0     | 2000   | 0.766 ± 0.020      |
+
+::: {.center}
+:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance
+
+:chart_with_downwards_trend: Using only synthetic data gives small performance drop
+:::
+
+## Classification {auto-animate=true}
+
+| #Real | #Synthetic | AUC - Prostate MRI |
+|-------|--------|--------------------|
+| 200   | 0      | 0.780 ± 0.017      |
+| 200   | 2000   | 0.803 ± 0.009      |
+| 0     | 2000   | 0.766 ± 0.020      |
+| 0     | 2000*  | 0.562 ± 0.036      |
+
+::: {.center}
+:chart_with_upwards_trend: Adding synthetic cases **maintains or improves** performance
+
+:chart_with_downwards_trend: Using only synthetic data gives small performance drop
+
+:-1: Training on 10-case embeddings shows quality difference
+:::
+
+## Comparison to GAN baseline
+
+:monocle_face: What about GANs?
+
+:microscope: Fine-tune a pre-trained StyleGAN3 on 100 images
+
+:balance_scale: Similar training time and compute
+
+![](media/head_to_head.png){fig-align=center}
+
+:health_worker: Prostate radiologist preferred diffusion model (36/50)
+
+## Composing embeddings
+
+:left_right_arrow: Interpolate between healthy and diseased state
+
+. . .
+
+:zap: Train two embeddings: `healthy`, `diseased`
+
+:black_nib: "`healthy`:30% AND `diseased`:70%"
+
+![](media/disease_interpolation.png){fig-align=center}
+
+## Composing embeddings
+
+:heavy_plus_sign: Combine multiple embeddings to show multiple diseases
+
+. . .
+
+:zap: Train embeddings per disease
+
+:black_nib: "`pleural_effusion` AND `pneumonia`"
+
+![](media/chexpert_composition.png){fig-align=center}
+
+## Disease inpainting
+
+- Curate synthesized dataset
+- Precise control over disease location
+
+IMAGE (full prostate image in a couple fragments)
+
+## Future directions
+
+- Fine-tune **medical** diffusion model
+- Applicable to **3D** text-to-image models
+- Study utility for **rare diseases**
+- Exploit controlled synthesis with **composing** and **inpainting**
+
+# Thanks for listening!
+
+:construction: style this page more
+
+{{< qrcode https://bramdewilde.com/medical-diffusion width=400 height=400 colorDark='#4c4f69' >}}
+
+Scan for paper, code, contact details & more!
+
+## Chambon et al.
+
+- Bonus slide showing what happens if you have data + compute
