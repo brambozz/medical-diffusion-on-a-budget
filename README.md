@@ -1,6 +1,6 @@
 # Medical diffusion on a budget
 
-[Project page](https://bramdewilde.com/medical-diffusion)
+:earth_africa: Check out our [project page](https://bramdewilde.com/medical-diffusion) for links to paper/poster & more!
 
 Repository for the paper 'Medical Diffusion on a budget: Textual Inversion for medical image generation', presented at MIDL 2024.
 
