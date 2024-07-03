@@ -1,7 +1,4 @@
 ---
-title: "Medical diffusion on a budget"
-subtitle: "Textual Inversion for medical image generation"
-author: "Bram de Wilde, Anindo Saha, Maarten de Rooij, Henkjan Huisman, Geert Litjens"
 from: markdown+emoji
 format: 
   revealjs:
@@ -14,11 +11,18 @@ title-slide-attributes:
     data-background-opacity: "0.1"
 ---
 
-## :construction: TODO
+::: {style="text-align: left; margin: auto;"}
 
-- add logo to title slide
-- bonus slide on chambon et al
-- bonus slide on FID metric
+## Medical diffusion on a budget {background-image=media/sd_overview.png background-opacity=0.1}
+
+### Textual Inversion for medical image generation
+
+![](media/examples.png){width=100%}
+
+[Bram de Wilde, Anindo Saha, Maarten de Rooij, Henkjan Huisman, Geert Litjens]{style="font-size:0.7em;"}
+
+![](media/radboudumc-catppuccin.png){width=20%}
+:::
 
 ## Diffusion models {.nostretch}
 
@@ -78,16 +82,18 @@ https://www.stelfiett.com/stelfies-gallery
 
 . . .
 
-:bulb: Fine-tune model
+:bulb: Fine-tune model towards medical domain
 
 ## Fine-tuning diffusion models
 
-Methods fine-tune sub-parts of diffusion model
+Various methods fine-tune sub-parts of diffusion model
+
+. . .
 
 :black_nib: Textual Inversion only trains token embedding
 
 ::: {.r-stack}
-![](media/general-overview-0.png){.fragment width=80% fig-align=center}
+![](media/general-overview-0.png){ width=80% fig-align=center}
 
 ![](media/general-overview.png){.fragment width=80% fig-align=center}
 :::
@@ -102,6 +108,36 @@ Methods fine-tune sub-parts of diffusion model
 :scroll: An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion, *Gal et al.*, 2022
 :::
 
+## First steps
+
+::: {.columns}
+
+::: {.column width="40%"}
+::: {style="text-align: center; font-size:0.7em;"}
+![](media/shelly_2.jpg){fig-align="center"}
+:black_cat: Shelly 
+:::
+:::
+
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="40%"}
+::: {style="text-align: center; font-size:0.7em;"}
+::: {.fragment}
+![](media/ch9_shelly_sd.png){fig-align="center"}
+:black_nib: "a painting of a :black_cat: as a knight"
+:::
+:::
+:::
+
+:::
+
+. . .
+
+:scientist: Explore Textual Inversion for medical images
+
 ## Adapt to medical imaging
 
 Original work uses small embeddings and ~5 examples
@@ -114,7 +150,17 @@ Original work uses small embeddings and ~5 examples
 
 ## Classification
 
-:construction: image visualizing setup
+:zap: Train negative+positive embedding on 100 cases
+
+::: {.fragment}
+:cd: Encode modalities as RGB channels (T2W, ADC, DWI) 
+:::
+
+::: {.fragment}
+:floppy_disk: 200/200/200 train/val/test 
+:::
+
+![](media/classification.png){width=80% fig-align=center}
 
 ## Classification
 
@@ -214,7 +260,25 @@ Original work uses small embeddings and ~5 examples
 
 ![](media/prostate_inpainting.png){fig-align=center width=50%}
 
-## Future directions
+## Conclusion
+
+:zap: Fine-tune Stable Diffusion with 100 images
+
+. . .
+
+:mag: Images are diagnostically accurate
+
+. . .
+
+:left_right_arrow: Compose multiple embeddings 
+
+. . .
+
+:paintbrush: Inpainting for disease appearance
+
+. . .
+
+**Future directions**
 
 :x_ray: Fine-tune **medical** diffusion model
 
@@ -247,10 +311,10 @@ Scan for :scroll: :floppy_disk: :envelope: & more!
 :::
 
 
-## Chambon et al.
+## Chambon et al. 2022 {.smaller}
 
-- Bonus slide showing what happens if you have data + compute
+![](media/roentgen.png)
 
-## FID metric
+:zap: Train diffusion model on $O(10^5)$ chest x-ray + report
 
-- Highlight appendix
+:fire: 64 A100 / 1 day
