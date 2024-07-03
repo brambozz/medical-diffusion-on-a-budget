@@ -4,6 +4,8 @@
 
 Repository for the paper 'Medical Diffusion on a budget: Textual Inversion for medical image generation', presented at MIDL 2024.
 
+![](poster/images/general-overview.svg)
+
 ## Textual Inversion
 
 Textual Inversion and image generation was performed with the [AUTOMATIC1111 web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui).
