@@ -1,6 +1,8 @@
 # Medical diffusion on a budget
 
-Repository for the paper 'Medical diffusion on a budget: textual inversion for medical image generation'.
+[Project page](https://bramdewilde.com/medical-diffusion)
+
+Repository for the paper 'Medical Diffusion on a budget: Textual Inversion for medical image generation', presented at MIDL 2024.
 
 ## Textual Inversion
 

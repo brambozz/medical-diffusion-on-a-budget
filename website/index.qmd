@@ -12,8 +12,7 @@ toc: true
 
 # Links
 
-:scroll: [Paper](arxiv) | :newspaper_roll: [Poster](https://raw.githubusercontent.com/brambozz/medical-diffusion-on-a-budget/main/poster/poster.pdf) | :floppy_disk: [Code](https://github.com/brambozz/medical-diffusion-on-a-budget)  
-
+:scroll: [Paper](https://openreview.net/pdf?id=J0zEnfU3Ow) | :newspaper_roll: [Poster](https://raw.githubusercontent.com/brambozz/medical-diffusion-on-a-budget/main/poster/poster.pdf) | :floppy_disk: [Code](https://github.com/brambozz/medical-diffusion-on-a-budget)  
 
 # Introduction
 
