@@ -6,6 +6,7 @@ format:
     slide-number: c
     theme: catppuccin.scss
     menu: false
+    pdf-separate-fragments: true
 title-slide-attributes:
     data-background-image: media/sd_overview.png
     data-background-opacity: "0.1"
@@ -82,7 +83,7 @@ https://www.stelfiett.com/stelfies-gallery
 
 . . .
 
-:bulb: Fine-tune model towards medical domain
+:bulb: Fine-tuning towards medical domain necessary!
 
 ## Fine-tuning diffusion models
 
@@ -93,9 +94,9 @@ Various methods fine-tune sub-parts of diffusion model
 :black_nib: Textual Inversion only trains token embedding
 
 ::: {.r-stack}
-![](media/general-overview-0.png){ width=80% fig-align=center}
+![](media/general-overview-0.png){width=70% fig-align=center}
 
-![](media/general-overview.png){.fragment width=80% fig-align=center}
+![](media/general-overview.png){.fragment width=70% fig-align=center}
 :::
 
 ## Textual Inversion
@@ -150,7 +151,9 @@ Original work uses small embeddings and ~5 examples
 
 ## Classification
 
+::: {.fragment}
 :zap: Train negative+positive embedding on 100 cases
+:::
 
 ::: {.fragment}
 :cd: Encode modalities as RGB channels (T2W, ADC, DWI) 
