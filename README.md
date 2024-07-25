@@ -17,6 +17,12 @@ To start generating with the embeddings, follow the installation instructions th
 
 All trained embeddings are included in the `embeddings` folder.
 
+## Data pre-processing
+
+To use this with your own images, you have to prepare RGB images of
+size 512x512. You can have a look at `convert_to_2d.py` for inspiration.
+This is (approximately) the script that was used for the PICAI dataset.
+
 ## Classifier training
 
 The environment used to train the binary classifiers can be recreated from `requirements.txt`.
