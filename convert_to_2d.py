@@ -2,7 +2,6 @@
 """
 from picai_eval.image_utils import read_image
 from picai_prep.preprocessing import crop_or_pad, resample_img
-from cinemri.visualisation import plot_frame
 import matplotlib.pyplot as plt
 from pathlib import Path
 import numpy as np
