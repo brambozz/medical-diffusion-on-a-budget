@@ -10,6 +10,133 @@ import SimpleITK as sitk
 from tqdm import tqdm
 from PIL import Image
 
+def plot_frame(
+    ax,
+    image,
+    title=None,
+    boxes=None,
+    box_thickness=3,
+    legend=False,
+    prediction=None,
+    label=None,
+    cmap="gray",
+    colorbar=False,
+):
+    """Plot single frame of medical image.
+
+    Parameters
+    ----------
+    ax : plt.axes object
+    image : 2D numpy array
+    boxes : list
+        List with dictionaries with the following items:
+            box : list
+                Bounding box in COCO format ([x, y, w, h])
+            color : plt color string (optional)
+            legend : str (optional)
+            label : str (optional)
+                Label that will be printed next to the box
+            filled : bool (optional)
+                if True, this will plot filled boxes with alpha=0.2
+    title : str
+    legend : bool
+        Toggle visibility of legend
+
+    By default this has colormap gray.
+    """
+    # Plot image
+    ax.imshow(image, cmap="gray")
+
+    # Plot bounding box annotations
+    if boxes:
+        for box in boxes:
+            # Process input
+            if box["box"] is None:
+                continue
+            if "color" in box:
+                color = box["color"]
+            else:
+                color = "red"
+            if "legend" in box:
+                legend_label = box["legend"]
+            else:
+                legend_label = ""
+            if "label" in box:
+                box_label = box["label"]
+            else:
+                box_label = ""
+            if "filled" in box:
+                if box["filled"]:
+                    facecolor = color
+                    alpha = 0.4
+                else:
+                    facecolor = "none"
+                    alpha = 1
+            else:
+                facecolor = "none"
+                alpha = 1
+
+            # Zero width/height boxes get a small box
+            if box["box"][2] == 0 and box["box"][3] == 0:
+                width = 1
+                height = 1
+            else:
+                width = box["box"][2]
+                height = box["box"][3]
+
+            rect = patches.Rectangle(
+                (box["box"][0], box["box"][1]),
+                width,
+                height,
+                linewidth=box_thickness,
+                edgecolor=color,
+                facecolor=facecolor,
+                label=legend_label,
+                alpha=alpha,
+            )
+            ax.add_patch(rect)
+            ax.annotate(box_label, (box["box"][0], box["box"][1] - 2), color=color)
+
+    # Add legend
+    if legend:
+        add_legend(ax)
+
+    # Add title
+    if title is not None:
+        ax.set_title(title)
+
+    # Plot prediction heatmap
+    imshow = None
+    if prediction is not None:
+        alpha = 1
+        threshold = 0.05
+        if cmap is None:
+            cmap = get_colormap_from_list("latte", ["lavender", "red"])
+        alpha = (prediction > threshold).astype(float) * alpha
+        imshow = ax.imshow(prediction, alpha=alpha, cmap=cmap, vmin=0, vmax=1)
+        if colorbar:
+            plt.colorbar(imshow, fraction=0.046, pad=0.04, ticks=[])
+
+    # Plot ground truth label
+    if label is not None:
+        enlarged_label = grow_segmentation(label[None, ...].astype(np.float), 2)
+        enlarged_label_frame = enlarged_label[0]
+        border_only = enlarged_label_frame - label
+        alpha = 1
+        alpha = (border_only > 0).astype(float) * alpha
+        ax.imshow(border_only, alpha=alpha, cmap=cmap)
+
+        # Plot label
+        alpha = 0.4
+        alpha = (label > 0).astype(float) * alpha
+        ax.imshow(label, alpha=alpha, cmap=cmap)
+
+    # Turn off axis
+    ax.set_axis_off()
+
+    if imshow:
+        return imshow
+
 
 def plot_middle_slice(t2w, adc, dwi, label, plot_multimodal=True, slice=None):
     n_slices, _, _ = t2w.shape
